@@ -1,16 +1,19 @@
-import PropTypes from "prop-types";
+import { removeContact } from 'features/itemsSlice';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import {
   ContactListTag,
   ContactListItem,
   ContactName,
   DeleteBtn,
-} from "./StyledContactList";
+} from './StyledContactList';
 
-export default function ContactList({ contacts, onDeleteClick }) {
+export default function ContactList({ contacts }) {
+  const dispatch = useDispatch();
   return (
     <>
       <ContactListTag>
-        {contacts.map((contact) => {
+        {contacts.map(contact => {
           return (
             <ContactListItem key={contact.id}>
               <ContactName>
@@ -18,7 +21,7 @@ export default function ContactList({ contacts, onDeleteClick }) {
               </ContactName>
               <DeleteBtn
                 type="button"
-                onClick={() => onDeleteClick(contact.id)}
+                onClick={() => dispatch(removeContact(contact.id))}
               >
                 Delete
               </DeleteBtn>
@@ -30,14 +33,14 @@ export default function ContactList({ contacts, onDeleteClick }) {
   );
 }
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
+// ContactList.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.string.isRequired,
+//     })
+//   ),
 
-  onDeleteClick: PropTypes.func.isRequired,
-};
+//   onDeleteClick: PropTypes.func.isRequired,
+// };
