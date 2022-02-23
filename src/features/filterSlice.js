@@ -5,11 +5,10 @@ const filterSlice = createSlice({
   initialState: '',
   reducers: {
     setFilter(state, action) {
-      return state + action.payload;
+      return action.payload;
     },
   },
 });
 
 export const { setFilter } = filterSlice.actions;
 export default filterSlice;
-console.log(filterSlice);
