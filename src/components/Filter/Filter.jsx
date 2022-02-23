@@ -1,15 +1,17 @@
 import PropTypes from "prop-types";
 import { LabelName, Label } from "./StyledFilter";
+import {useDispatch} from "react-redux";
+import { setFilter } from 'features/filterSlice';
 
-function Filter({ value, onChange }) {
+function Filter() {
+  const dispatch = useDispatch();
   return (
     <Label>
       <LabelName>Find contacts by name</LabelName>
       <input
         type="text"
         name="filter"
-        value={value}
-        onChange={onChange}
+        onChange={(evt)=>dispatch(setFilter(evt.target.value))}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
@@ -20,7 +22,7 @@ function Filter({ value, onChange }) {
 
 export default Filter;
 
-Filter.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-};
+// Filter.propTypes = {
+//   value: PropTypes.string,
+//   onChange: PropTypes.func,
+// };

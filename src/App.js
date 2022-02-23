@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Wrapper,
   PhonebookHeading,
@@ -11,13 +12,11 @@ import Filter from './components/Filter';
 import { LackOfFriendsPhrase } from './components/Filter/StyledFilter';
 import useLocalStorage from 'hooks/useLocalstorage';
 import { addContact } from 'features/itemsSlice';
-import { useSelector, useDispatch } from 'react-redux';
 
 export default function App() {
   const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
-
-  const [filter, setFilter] = useState('');
 
   const HandleFormDatas = data => {
     const normalizedDataName = data.name.toLowerCase();
@@ -28,10 +27,6 @@ export default function App() {
     checkExistingContact.includes(true)
       ? toast.error(`${data.name} is already in contacts`)
       : dispatch(addContact(data));
-  };
-
-  const HandleFilterDatas = evt => {
-    setFilter(evt.currentTarget.value);
   };
 
   const FilterContactList = () => {
@@ -48,7 +43,7 @@ export default function App() {
       <ContactsHeading>Contacts</ContactsHeading>
 
       {contacts.length !== 0 ? (
-        <Filter value={filter} onChange={HandleFilterDatas} />
+        <Filter />
       ) : (
         <LackOfFriendsPhrase>You don`t have any contact :(</LackOfFriendsPhrase>
       )}
