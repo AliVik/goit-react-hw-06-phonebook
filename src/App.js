@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -12,9 +11,12 @@ import Filter from './components/Filter';
 import { LackOfFriendsPhrase } from './components/Filter/StyledFilter';
 import useLocalStorage from 'hooks/useLocalstorage';
 import { addContact } from 'features/itemsSlice';
+import getStoredState from 'redux-persist/es/getStoredState';
 
 export default function App() {
   const contacts = useSelector(state => state.contacts);
+  console.log(contacts);
+
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
