@@ -10,7 +10,6 @@ const contactsSlice = createSlice({
   ],
   reducers: {
     addContact(state, action) {
-      console.log(state);
       return [...Object.values(state), action.payload];
     },
     removeContact(state, action) {

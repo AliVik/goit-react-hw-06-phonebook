@@ -13,7 +13,7 @@ import { addContact } from 'features/itemsSlice';
 
 export default function App() {
   const contacts = useSelector(state => state.contacts);
-  console.log(contacts);
+
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
