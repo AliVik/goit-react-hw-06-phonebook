@@ -9,20 +9,18 @@ import Form from './components/Form';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 import { LackOfFriendsPhrase } from './components/Filter/StyledFilter';
-import useLocalStorage from 'hooks/useLocalstorage';
 import { addContact } from 'features/itemsSlice';
-import getStoredState from 'redux-persist/es/getStoredState';
 
 export default function App() {
   const contacts = useSelector(state => state.contacts);
   console.log(contacts);
-
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
   const HandleFormDatas = data => {
     const normalizedDataName = data.name.toLowerCase();
-    const checkExistingContact = contacts.map(contact => {
+    const checkExistingContact = Object.values(contacts).map(contact => {
+      if (!contact.name) return;
       return contact.name.toLowerCase().includes(normalizedDataName);
     });
 
@@ -33,9 +31,10 @@ export default function App() {
 
   const FilterContactList = () => {
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
+    return Object.values(contacts).filter(contact => {
+      if (!contact.name) return;
+      return contact.name.toLowerCase().includes(normalizedFilter);
+    });
   };
 
   return (
